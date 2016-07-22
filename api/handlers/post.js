@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
-var postModel = require('../models/post')
-mongoose.connect('mongodb://app:app3797@ds021689.mlab.com:21689/kdi-blog')
+var postModel = require('../models/post');
+var config = require('../config');
+mongoose.connect(config.mongoURL)
 
 module.exports.create = {
   // auth: 'jwt',
@@ -13,7 +14,7 @@ module.exports.create = {
       postData = JSON.parse(postData);
     }
 
-    if (postData.authKey !== "testKey123") {
+    if (postData.authKey !== config.apiKey) {
       return reply({
         message: 'please provide authentication key'
       }).code(401)
